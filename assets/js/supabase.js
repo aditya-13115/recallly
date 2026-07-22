@@ -65,7 +65,7 @@ async function fetchProfile(userId) {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("user_id", userId)
+    .eq("id", userId)
     .maybeSingle();
   if (error) throw error;
   return data;
@@ -74,7 +74,7 @@ async function fetchProfile(userId) {
 async function upsertProfile(userId, displayName) {
   const { data, error } = await supabase
     .from("profiles")
-    .upsert({ user_id: userId, display_name: displayName }, { onConflict: "user_id" })
+    .upsert({ id: userId, display_name: displayName }, { onConflict: "id" })
     .select()
     .single();
   if (error) throw error;
